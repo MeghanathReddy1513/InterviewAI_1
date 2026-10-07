@@ -1,0 +1,26 @@
+modules = ["nodejs-24"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+SUPABASE_URL = "https://wbfxumdfnoglylojpnpw.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZnh1bWRmbm9nbHlsb2pwbnB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjI1MjEsImV4cCI6MjEwNjgzODUyMX0.PzhCPw224x85U0sH2BFTMxRlDz87vmM_em4kbjDTdCk"

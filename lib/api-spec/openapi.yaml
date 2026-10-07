@@ -1,0 +1,585 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: InterviewAI's authenticated interview-practice API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Session authentication
+  - name: profile
+    description: Candidate profile
+  - name: interviews
+    description: Mock interview sessions and answers
+  - name: analytics
+    description: Performance insights
+  - name: roadmap
+    description: Personalized learning roadmap
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /config:
+    get:
+      operationId: getAppConfig
+      tags: [health]
+      summary: Get public configuration status
+      responses:
+        "200":
+          description: Public configuration and service readiness
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppConfig"
+  /auth/register:
+    post:
+      operationId: registerAccount
+      tags: [auth]
+      summary: Create a Supabase Auth account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "201":
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResult"
+        "400":
+          description: Registration details are invalid
+  /auth/login:
+    post:
+      operationId: loginAccount
+      tags: [auth]
+      summary: Start a session using email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Session started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResult"
+        "401":
+          description: Credentials are invalid
+  /auth/logout:
+    post:
+      operationId: logoutAccount
+      tags: [auth]
+      summary: End the current session
+      responses:
+        "200":
+          description: Session ended
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /auth/me:
+    get:
+      operationId: getCurrentAccount
+      tags: [auth]
+      summary: Restore the current session
+      responses:
+        "200":
+          description: Current authenticated account
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUser"
+        "401":
+          description: No active session
+  /profile:
+    get:
+      operationId: getProfile
+      tags: [profile]
+      summary: Get the current profile
+      responses:
+        "200":
+          description: Candidate profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+    put:
+      operationId: updateProfile
+      tags: [profile]
+      summary: Update the current profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileInput"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+  /dashboard:
+    get:
+      operationId: getDashboard
+      tags: [interviews]
+      summary: Get real interview activity and performance summary
+      responses:
+        "200":
+          description: Dashboard data calculated from saved interviews
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+  /interviews:
+    get:
+      operationId: listInterviews
+      tags: [interviews]
+      summary: List the current user's interviews
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [in_progress, completed]
+      responses:
+        "200":
+          description: Interview history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterviewSummary"
+    post:
+      operationId: createInterview
+      tags: [interviews]
+      summary: Create an interview and generate its first question
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterviewConfig"
+      responses:
+        "201":
+          description: Interview started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterviewStart"
+  /interviews/{id}:
+    get:
+      operationId: getInterview
+      tags: [interviews]
+      summary: Get an interview and all saved answer evaluations
+      parameters:
+        - $ref: "#/components/parameters/InterviewId"
+      responses:
+        "200":
+          description: Interview detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterviewDetail"
+        "404":
+          description: Interview not found
+    delete:
+      operationId: deleteInterview
+      tags: [interviews]
+      summary: Delete an interview owned by the current user
+      parameters:
+        - $ref: "#/components/parameters/InterviewId"
+      responses:
+        "200":
+          description: Interview deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /interviews/{id}/answer:
+    post:
+      operationId: submitInterviewAnswer
+      tags: [interviews]
+      summary: Evaluate and save an answer, then prepare the next adaptive question
+      parameters:
+        - $ref: "#/components/parameters/InterviewId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnswerInput"
+      responses:
+        "200":
+          description: Answer evaluation and next question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnswerResult"
+  /interviews/{id}/complete:
+    post:
+      operationId: completeInterview
+      tags: [interviews]
+      summary: Complete an interview and save its final report and roadmap
+      parameters:
+        - $ref: "#/components/parameters/InterviewId"
+      responses:
+        "200":
+          description: Final interview report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterviewReport"
+  /analytics:
+    get:
+      operationId: getAnalytics
+      tags: [analytics]
+      summary: Get analytics calculated from completed interviews
+      responses:
+        "200":
+          description: Performance analytics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analytics"
+  /roadmap:
+    get:
+      operationId: getRoadmap
+      tags: [roadmap]
+      summary: Get the current user's learning roadmap
+      responses:
+        "200":
+          description: Roadmap topics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoadmapItem"
+  /roadmap/{id}:
+    patch:
+      operationId: updateRoadmapItem
+      tags: [roadmap]
+      summary: Update roadmap topic progress
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoadmapProgressInput"
+      responses:
+        "200":
+          description: Updated roadmap topic
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoadmapItem"
+components:
+  parameters:
+    InterviewId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    AppConfig:
+      type: object
+      properties:
+        supabaseConfigured:
+          type: boolean
+        supabaseReachable:
+          type: boolean
+        databaseSchemaReady:
+          type: boolean
+        aiConfigured:
+          type: boolean
+      required: [supabaseConfigured, supabaseReachable, databaseSchemaReady, aiConfigured]
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
+    AuthUser:
+      type: object
+      properties:
+        id: { type: string }
+        email: { type: string }
+        fullName: { type: string }
+        username: { type: string }
+      required: [id, email, fullName, username]
+    RegisterInput:
+      type: object
+      properties:
+        fullName: { type: string, minLength: 2, maxLength: 100 }
+        username: { type: string, minLength: 3, maxLength: 32 }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8, maxLength: 128 }
+      required: [fullName, username, email, password]
+    LoginInput:
+      type: object
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 1, maxLength: 128 }
+      required: [email, password]
+    AuthResult:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/AuthUser"
+        message: { type: string }
+        emailConfirmationRequired: { type: boolean }
+      required: [user, message, emailConfirmationRequired]
+    Profile:
+      type: object
+      properties:
+        id: { type: string }
+        fullName: { type: string }
+        username: { type: string }
+        email: { type: string }
+        preferredRole: { type: ["string", "null"] }
+        preferredProgrammingLanguage: { type: ["string", "null"] }
+        preferredInterviewLanguage: { type: string }
+        totalInterviews: { type: integer }
+        averageScore: { type: number }
+        bestScore: { type: number }
+        questionsAnswered: { type: integer }
+        readinessScore: { type: number }
+      required: [id, fullName, username, email, preferredRole, preferredProgrammingLanguage, preferredInterviewLanguage, totalInterviews, averageScore, bestScore, questionsAnswered, readinessScore]
+    ProfileInput:
+      type: object
+      properties:
+        fullName: { type: string, minLength: 2, maxLength: 100 }
+        username: { type: string, minLength: 3, maxLength: 32 }
+        preferredRole: { type: ["string", "null"] }
+        preferredProgrammingLanguage: { type: ["string", "null"] }
+        preferredInterviewLanguage: { type: string, enum: [English, Telugu, Hindi] }
+      required: [fullName, username, preferredRole, preferredProgrammingLanguage, preferredInterviewLanguage]
+    InterviewConfig:
+      type: object
+      properties:
+        role: { type: string, minLength: 2, maxLength: 120 }
+        interviewType: { type: string, enum: [Technical, HR, Behavioral, Coding, Mixed] }
+        programmingLanguage: { type: string, maxLength: 80 }
+        difficulty: { type: string, enum: [Beginner, Intermediate, Advanced, Expert] }
+        experienceLevel: { type: string, enum: [Student, Fresher, Junior, Mid-level] }
+        numberOfQuestions: { type: integer, enum: [5, 10, 15, 20] }
+        totalMarks: { type: integer, enum: [50, 100, 150, 200] }
+        timeLimitMinutes: { type: ["integer", "null"] }
+        interviewLanguage: { type: string, enum: [English, Telugu, Hindi] }
+        persona: { type: string, enum: [Friendly Coach, Professional Recruiter, Strict Technical Interviewer, Challenging Senior Engineer] }
+        voiceEnabled: { type: boolean }
+        resumeContext: { type: ["string", "null"], maxLength: 12000 }
+        jobDescription: { type: ["string", "null"], maxLength: 12000 }
+      required: [role, interviewType, programmingLanguage, difficulty, experienceLevel, numberOfQuestions, totalMarks, timeLimitMinutes, interviewLanguage, persona, voiceEnabled, resumeContext, jobDescription]
+    InterviewSummary:
+      type: object
+      properties:
+        id: { type: string }
+        role: { type: string }
+        interviewType: { type: string }
+        programmingLanguage: { type: string }
+        difficulty: { type: string }
+        questionCount: { type: integer }
+        totalMarks: { type: integer }
+        marksObtained: { type: integer }
+        percentage: { type: number }
+        performanceRating: { type: ["string", "null"] }
+        status: { type: string, enum: [in_progress, completed] }
+        createdAt: { type: string }
+      required: [id, role, interviewType, programmingLanguage, difficulty, questionCount, totalMarks, marksObtained, percentage, performanceRating, status, createdAt]
+    InterviewQuestion:
+      type: object
+      properties:
+        id: { type: string }
+        questionNumber: { type: integer }
+        questionText: { type: string }
+        topic: { type: string }
+        difficulty: { type: string }
+        questionType: { type: string }
+        maxMarks: { type: integer }
+      required: [id, questionNumber, questionText, topic, difficulty, questionType, maxMarks]
+    InterviewStart:
+      type: object
+      properties:
+        interview: { $ref: "#/components/schemas/InterviewSummary" }
+        question: { $ref: "#/components/schemas/InterviewQuestion" }
+        aiMode: { type: string, enum: [live, demo] }
+      required: [interview, question, aiMode]
+    AnswerEvaluation:
+      type: object
+      properties:
+        id: { type: string }
+        questionId: { type: string }
+        answerText: { type: string }
+        marksObtained: { type: integer }
+        technicalScore: { type: number }
+        answerQualityScore: { type: number }
+        relevanceScore: { type: number }
+        communicationScore: { type: number }
+        clarityScore: { type: number }
+        strengths: { type: array, items: { type: string } }
+        weaknesses: { type: array, items: { type: string } }
+        improvementTips: { type: array, items: { type: string } }
+        sampleAnswer: { type: string }
+        topicsToRevise: { type: array, items: { type: string } }
+        performanceCategory: { type: string }
+      required: [id, questionId, answerText, marksObtained, technicalScore, answerQualityScore, relevanceScore, communicationScore, clarityScore, strengths, weaknesses, improvementTips, sampleAnswer, topicsToRevise, performanceCategory]
+    QuestionReview:
+      type: object
+      properties:
+        question:
+          $ref: "#/components/schemas/InterviewQuestion"
+        evaluation:
+          anyOf:
+            - $ref: "#/components/schemas/AnswerEvaluation"
+            - type: "null"
+      required: [question, evaluation]
+    InterviewDetail:
+      type: object
+      properties:
+        interview: { $ref: "#/components/schemas/InterviewSummary" }
+        config: { $ref: "#/components/schemas/InterviewConfig" }
+        questions:
+          type: array
+          items: { $ref: "#/components/schemas/QuestionReview" }
+        report:
+          anyOf:
+            - $ref: "#/components/schemas/InterviewReport"
+            - type: "null"
+      required: [interview, config, questions, report]
+    AnswerInput:
+      type: object
+      properties:
+        questionId: { type: string }
+        answerText: { type: string, maxLength: 12000 }
+        skipped: { type: boolean }
+      required: [questionId, answerText, skipped]
+    AnswerResult:
+      type: object
+      properties:
+        evaluation: { $ref: "#/components/schemas/AnswerEvaluation" }
+        nextQuestion:
+          anyOf:
+            - $ref: "#/components/schemas/InterviewQuestion"
+            - type: "null"
+        isComplete: { type: boolean }
+        aiMode: { type: string, enum: [live, demo] }
+      required: [evaluation, nextQuestion, isComplete, aiMode]
+    InterviewReport:
+      type: object
+      properties:
+        interview: { $ref: "#/components/schemas/InterviewSummary" }
+        overallScore: { type: number }
+        percentage: { type: number }
+        performanceRating: { type: string }
+        technicalScore: { type: number }
+        communicationScore: { type: number }
+        answerQualityScore: { type: number }
+        relevanceScore: { type: number }
+        clarityScore: { type: number }
+        strengths: { type: array, items: { type: string } }
+        weaknesses: { type: array, items: { type: string } }
+        topicsToRevise: { type: array, items: { type: string } }
+        finalFeedback: { type: string }
+        aiMode: { type: string, enum: [live, demo] }
+      required: [interview, overallScore, percentage, performanceRating, technicalScore, communicationScore, answerQualityScore, relevanceScore, clarityScore, strengths, weaknesses, topicsToRevise, finalFeedback, aiMode]
+    Dashboard:
+      type: object
+      properties:
+        totalInterviews: { type: integer }
+        averageScore: { type: number }
+        bestScore: { type: number }
+        questionsAnswered: { type: integer }
+        readinessScore: { type: number }
+        recentInterviews:
+          type: array
+          items: { $ref: "#/components/schemas/InterviewSummary" }
+        strongestTopics: { type: array, items: { type: string } }
+        weakestTopics: { type: array, items: { type: string } }
+        nextRecommendation: { type: ["string", "null"] }
+        roadmapProgress: { type: number }
+      required: [totalInterviews, averageScore, bestScore, questionsAnswered, readinessScore, recentInterviews, strongestTopics, weakestTopics, nextRecommendation, roadmapProgress]
+    ScorePoint:
+      type: object
+      properties:
+        date: { type: string }
+        score: { type: number }
+        role: { type: string }
+      required: [date, score, role]
+    CategoryScore:
+      type: object
+      properties:
+        category: { type: string }
+        score: { type: number }
+      required: [category, score]
+    Analytics:
+      type: object
+      properties:
+        averageScore: { type: number }
+        bestScore: { type: number }
+        worstScore: { type: number }
+        improvement: { type: number }
+        scoreTrend:
+          type: array
+          items: { $ref: "#/components/schemas/ScorePoint" }
+        categoryScores:
+          type: array
+          items: { $ref: "#/components/schemas/CategoryScore" }
+      required: [averageScore, bestScore, worstScore, improvement, scoreTrend, categoryScores]
+    RoadmapItem:
+      type: object
+      properties:
+        id: { type: string }
+        topic: { type: string }
+        description: { type: string }
+        priority: { type: string }
+        practiceTask: { type: string }
+        estimatedMinutes: { type: integer }
+        status: { type: string, enum: [Not Started, In Progress, Completed] }
+        orderIndex: { type: integer }
+      required: [id, topic, description, priority, practiceTask, estimatedMinutes, status, orderIndex]
+    RoadmapProgressInput:
+      type: object
+      properties:
+        status: { type: string, enum: [Not Started, In Progress, Completed] }
+      required: [status]
+

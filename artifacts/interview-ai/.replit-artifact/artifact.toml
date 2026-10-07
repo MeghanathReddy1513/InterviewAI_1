@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "InterviewAI"
+description = "An AI-powered interview practice platform that adapts questions to a candidate's role, answers, and goals, then saves feedback and progress."
+version = "1.0.0"
+id = "artifacts/interview-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23149
+
+[services.development]
+run = "pnpm --filter @workspace/interview-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/interview-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/interview-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23149"
+BASE_PATH = "/"

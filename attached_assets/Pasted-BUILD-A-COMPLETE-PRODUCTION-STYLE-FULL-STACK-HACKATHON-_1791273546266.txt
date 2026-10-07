@@ -1,0 +1,1818 @@
+BUILD A COMPLETE PRODUCTION-STYLE FULL-STACK HACKATHON APPLICATION
+
+PROJECT NAME:
+InterviewAI
+
+HACKATHON PROBLEM STATEMENT:
+"Create a web application that conducts mock interviews and provides feedback on answers, communication, and technical knowledge."
+
+==================================================
+IMPORTANT INSTRUCTIONS
+==================================================
+
+I am a beginner and need you to build the application for me.
+
+Create a REAL, WORKING, FULL-STACK APPLICATION.
+
+Do NOT create:
+- static pages
+- fake buttons
+- fake dashboards
+- hard-coded user results
+- placeholder functionality for core features
+- disconnected frontend/backend
+- fake database functionality
+
+Every major feature displayed in the interface must work.
+
+The application must be suitable for a university hackathon and should feel like a professional startup/SaaS product.
+
+Prioritize:
+1. Reliability
+2. Complete interview flow
+3. Real AI functionality
+4. Supabase integration
+5. Excellent UI/UX
+6. Data persistence
+7. Strong hackathon demo experience
+
+Do not overcomplicate the project with unnecessary technologies.
+
+==================================================
+1. PRODUCT VISION
+==================================================
+
+InterviewAI is an AI-powered interview preparation platform for students, freshers, and job seekers.
+
+The platform should simulate realistic interviews and evaluate the user's:
+
+- Technical knowledge
+- Answer quality
+- Relevance
+- Communication
+- Clarity
+- Problem solving
+- Coding ability where applicable
+
+The platform should personalize interviews using:
+
+- Username
+- Job role
+- Interview type
+- Programming language
+- Difficulty level
+- Experience level
+- Interview language
+- Resume
+- Job description
+- Previous interview performance
+
+The platform should become smarter based on previous interview results.
+
+==================================================
+2. TECHNOLOGY STACK
+==================================================
+
+Use:
+
+FRONTEND:
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Reusable components
+- Responsive design
+
+BACKEND:
+- Node.js
+- Express.js
+- REST APIs
+
+BACKEND INFRASTRUCTURE:
+- Supabase
+
+DATABASE:
+- Supabase PostgreSQL
+
+AUTHENTICATION:
+- Supabase Auth
+
+FILE STORAGE:
+- Supabase Storage
+
+SECURITY:
+- Supabase Row Level Security
+
+SERVER-SIDE AI:
+- Secure backend/API route or Supabase Edge Functions
+
+AI:
+- LLM API using secure environment variables
+
+CHARTS:
+- React-compatible chart library
+
+==================================================
+3. SUPABASE IS THE PRIMARY BACKEND
+==================================================
+
+Use Supabase for:
+
+- Authentication
+- PostgreSQL database
+- Storage
+- Row Level Security
+- User data
+- Interview data
+- Questions
+- Answers
+- Analytics data
+- Resume metadata
+- Learning roadmap data
+
+Do NOT create a separate PostgreSQL database if Supabase is connected.
+
+Create a centralized Supabase client.
+
+Use environment variables.
+
+Never expose:
+- service-role keys
+- AI API secret keys
+- private credentials
+
+==================================================
+4. AUTHENTICATION
+==================================================
+
+Use Supabase Auth.
+
+Implement:
+
+- Register
+- Login
+- Logout
+- Persistent session
+- Session restoration after page refresh
+- Protected routes
+- Authentication error handling
+
+REGISTRATION FIELDS:
+
+- Full Name
+- Username
+- Email
+- Password
+- Confirm Password
+
+Validation:
+- Required fields
+- Valid email
+- Unique username
+- Password confirmation
+- Password strength
+
+LOGIN:
+
+Allow:
+- Username or Email
+- Password
+
+Include:
+- Show/hide password
+- Loading state
+- Error state
+- Success notifications
+- Session persistence
+
+Do NOT store raw passwords in PostgreSQL.
+
+==================================================
+5. USER PROFILE
+==================================================
+
+Create a profile page.
+
+Display:
+
+- Full Name
+- Username
+- Email
+- Avatar/initials
+- Preferred Job Role
+- Preferred Programming Language
+- Preferred Interview Language
+- Total Interviews
+- Average Score
+- Best Score
+- Questions Answered
+- Job Readiness Score
+
+Allow user to update profile information.
+
+==================================================
+6. LANDING PAGE
+==================================================
+
+Create a premium modern landing page.
+
+Brand:
+InterviewAI
+
+Headline:
+"Practice Smarter. Interview Better."
+
+Subheading:
+"An AI-powered mock interview platform that evaluates your technical knowledge, communication and interview performance."
+
+Buttons:
+- Start Interview
+- Login
+- Create Account
+
+Sections:
+- How It Works
+- Features
+- Why InterviewAI
+- AI Evaluation
+- Adaptive Interviews
+- Resume Personalization
+- Job Matching
+- Coding Interviews
+- Performance Analytics
+- Learning Roadmap
+- Call To Action
+
+Create a professional visual identity.
+
+Use:
+- Dark modern theme
+- Subtle gradients
+- Glass-style cards where appropriate
+- Smooth hover effects
+- Professional typography
+- Clean icons
+- Subtle animations
+- Responsive layout
+
+Do NOT make it look like a generic template.
+
+==================================================
+7. MAIN NAVIGATION
+==================================================
+
+Authenticated navigation:
+
+- Dashboard
+- Start Interview
+- Resume Analyzer
+- Job Match
+- Interview History
+- Analytics
+- Learning Roadmap
+- Profile
+- Settings
+- Logout
+
+Public navigation:
+
+- Home
+- Features
+- Login
+- Register
+
+==================================================
+8. DASHBOARD
+==================================================
+
+After login display:
+
+"Welcome back, {username}"
+
+Show:
+
+- Total Interviews
+- Average Score
+- Best Score
+- Questions Answered
+- Current Streak
+- Job Readiness Score
+
+Charts:
+- Score improvement
+- Technical performance
+- Communication performance
+
+Recent Interviews:
+Each record should show:
+
+- Date
+- Job Role
+- Interview Type
+- Programming Language
+- Difficulty
+- Marks Obtained
+- Total Marks
+- Percentage
+
+Show:
+
+WEAKEST TOPICS
+
+STRONGEST TOPICS
+
+RECOMMENDED NEXT INTERVIEW
+
+LEARNING ROADMAP PROGRESS
+
+JOB MATCH SCORE
+
+Use REAL Supabase data after interviews exist.
+
+==================================================
+9. INTERVIEW SETUP PAGE
+==================================================
+
+Create a highly polished configuration screen.
+
+Title:
+"Configure Your AI Mock Interview"
+
+Show logged-in username.
+
+FIELD:
+JOB ROLE
+
+Options:
+- Full Stack Developer
+- Frontend Developer
+- Backend Developer
+- Python Developer
+- Java Developer
+- C++ Developer
+- Software Engineer
+- Data Analyst
+- Data Scientist
+- DevOps Engineer
+- Custom Role
+
+If Custom Role selected:
+show a custom role input.
+
+FIELD:
+INTERVIEW TYPE
+
+Options:
+- Technical
+- HR
+- Behavioral
+- Coding
+- Mixed
+
+FIELD:
+PROGRAMMING / TECHNICAL LANGUAGE
+
+Options:
+- C
+- C++
+- Java
+- Python
+- JavaScript
+- TypeScript
+- SQL
+- HTML/CSS
+- React
+- Node.js
+- Other
+- General / No Programming Language
+
+For HR/Behavioral interviews, allow:
+General / No Programming Language
+
+FIELD:
+DIFFICULTY
+
+Options:
+- Beginner
+- Intermediate
+- Advanced
+- Expert
+
+Display explanations:
+
+Beginner:
+Basic concepts and fundamentals
+
+Intermediate:
+Practical and problem-solving questions
+
+Advanced:
+Deep technical and scenario-based questions
+
+Expert:
+Difficult real-world engineering questions
+
+FIELD:
+EXPERIENCE LEVEL
+
+Options:
+- Student
+- Fresher
+- Junior
+- Mid-level
+
+FIELD:
+NUMBER OF QUESTIONS
+
+Options:
+- 5
+- 10
+- 15
+- 20
+
+Default:
+10
+
+FIELD:
+TOTAL MARKS
+
+Options:
+- 50
+- 100
+- 150
+- 200
+
+Default:
+100
+
+Calculate marks per question dynamically.
+
+Example:
+10 questions / 100 total marks
+= 10 marks per question
+
+FIELD:
+TIME LIMIT
+
+Options:
+- 10 minutes
+- 15 minutes
+- 20 minutes
+- 30 minutes
+- No Limit
+
+FIELD:
+INTERVIEW LANGUAGE
+
+Options:
+- English
+- Telugu
+- Hindi
+
+The AI should ask questions and provide feedback in the selected language.
+
+FIELD:
+INTERVIEWER PERSONA
+
+Options:
+- Friendly Coach
+- Professional Recruiter
+- Strict Technical Interviewer
+- Challenging Senior Engineer
+
+FIELD:
+VOICE MODE
+
+Toggle:
+- Text Interview
+- Voice Interview
+
+Show a final configuration summary:
+
+Username
+Job Role
+Interview Type
+Programming Language
+Difficulty
+Experience
+Number of Questions
+Total Marks
+Marks Per Question
+Time Limit
+Interview Language
+Interviewer Persona
+Voice Mode
+
+Button:
+
+START AI INTERVIEW
+
+==================================================
+10. AI INTERVIEW ENGINE
+==================================================
+
+When Start Interview is clicked:
+
+1. Create interview session in Supabase.
+2. Save all configuration.
+3. Generate relevant questions.
+4. Show one question at a time.
+5. Evaluate every answer.
+6. Adapt the next question.
+7. Save everything.
+8. Generate final report.
+
+Questions must be relevant to:
+
+- Selected role
+- Interview type
+- Programming language
+- Difficulty
+- Experience
+- Interview language
+- Previous answers
+- Resume where available
+- Job description where available
+
+Do NOT generate irrelevant or duplicate questions.
+
+==================================================
+11. ADAPTIVE AI INTERVIEW
+==================================================
+
+This is one of the most important features.
+
+The interview must adapt to performance.
+
+After each answer:
+
+1. Evaluate the answer.
+2. Identify strengths.
+3. Identify weaknesses.
+4. Identify topic.
+5. Determine performance level.
+6. Generate the next question accordingly.
+
+WEAK ANSWER:
+Ask foundational or easier follow-up questions.
+
+AVERAGE ANSWER:
+Ask practical/application questions.
+
+STRONG ANSWER:
+Increase difficulty.
+
+EXCELLENT ANSWER:
+Ask deeper scenario-based or advanced questions.
+
+Do not repeat questions.
+
+Maintain interview context.
+
+Store useful structured metadata only.
+
+Do NOT store or expose hidden chain-of-thought.
+
+Store:
+- topic
+- difficulty
+- question type
+- performance category
+- next question strategy
+
+==================================================
+12. LIVE INTERVIEW SCREEN
+==================================================
+
+Create a professional interview screen.
+
+Header:
+- InterviewAI logo
+- Username
+- Job role
+- Difficulty
+- Language
+- Timer
+
+Show:
+
+Question 3 of 10
+Marks: 10
+
+Question text
+
+Large answer box
+
+Buttons:
+- Submit Answer
+- Skip Question
+- End Interview
+
+Include:
+- Progress bar
+- Character counter
+- Loading state
+- Answer submission protection
+- End interview confirmation
+
+After submitting answer:
+show evaluation summary before moving forward.
+
+==================================================
+13. ANSWER EVALUATION
+==================================================
+
+Use secure server-side AI evaluation.
+
+Evaluate each answer.
+
+Return structured information:
+
+- Marks Obtained
+- Technical Knowledge Score
+- Answer Quality Score
+- Relevance Score
+- Communication Score
+- Clarity Score
+
+Also provide:
+
+STRENGTHS
+
+WEAKNESSES
+
+IMPROVEMENT TIPS
+
+BETTER SAMPLE ANSWER
+
+TOPICS TO REVISE
+
+Do not always award high scores.
+
+Evaluation should depend on the actual answer.
+
+==================================================
+14. MARKING SYSTEM
+==================================================
+
+Use transparent scoring.
+
+For technical interviews:
+
+Example 10-mark question:
+
+Technical Knowledge = 4
+Accuracy/Relevance = 2
+Answer Quality = 2
+Communication/Clarity = 2
+
+Total = 10
+
+For HR/Behavioral:
+
+Use:
+- Relevance
+- Communication
+- Structure
+- Clarity
+- Completeness
+
+Scale automatically based on maximum marks.
+
+Final result should show:
+
+Marks Obtained
+Total Marks
+Percentage
+Overall Score
+Performance Rating
+
+Performance Rating:
+
+90-100 = Excellent
+75-89 = Very Good
+60-74 = Good
+40-59 = Needs Improvement
+Below 40 = Needs Significant Improvement
+
+==================================================
+15. FINAL RESULT PAGE
+==================================================
+
+After interview completion:
+
+Display:
+
+INTERVIEW COMPLETED
+
+Overall Score:
+82 / 100
+
+Percentage:
+82%
+
+Performance:
+Very Good
+
+Show breakdown:
+
+Technical Knowledge
+Communication
+Answer Quality
+Relevance
+Clarity
+Problem Solving
+
+Use:
+- Progress bars
+- Circular score indicator
+- Charts
+- Cards
+
+Show:
+
+Strongest Areas
+
+Weakest Areas
+
+Questions Needing Improvement
+
+Topics To Revise
+
+AI Final Feedback
+
+The final AI feedback should explain:
+- Overall performance
+- Main strengths
+- Main weaknesses
+- What to improve
+- Recommended preparation strategy
+
+Buttons:
+- Try Again
+- New Interview
+- View History
+- View Roadmap
+- Dashboard
+
+==================================================
+16. INTERVIEW REPLAY
+==================================================
+
+Every completed interview must be replayable.
+
+Display:
+
+Question
+↓
+User Answer
+↓
+Marks
+↓
+Evaluation
+↓
+Strengths
+↓
+Weaknesses
+↓
+Better Answer
+↓
+Topics To Revise
+
+Allow question-by-question review.
+
+==================================================
+17. INTERVIEW HISTORY
+==================================================
+
+Create Interview History.
+
+Each interview record:
+
+- Date
+- Role
+- Interview Type
+- Programming Language
+- Difficulty
+- Number of Questions
+- Total Marks
+- Marks Obtained
+- Percentage
+- Performance Rating
+
+Filters:
+- Role
+- Difficulty
+- Language
+- Interview Type
+- Date
+
+Actions:
+- View Report
+- Replay Interview
+- Delete Interview
+
+Users must only see their own interviews.
+
+==================================================
+18. ANALYTICS
+==================================================
+
+Create a professional analytics dashboard.
+
+Use REAL Supabase data.
+
+Show:
+
+- Average Score
+- Best Score
+- Worst Score
+- Score Improvement
+- Technical Average
+- Communication Average
+- Answer Quality Average
+- Relevance Average
+- Clarity Average
+
+Charts:
+- Score Trend
+- Category Performance
+- Difficulty Performance
+- Programming Language Performance
+- Interview Type Performance
+
+Show:
+
+"Your performance improved by X%."
+
+"Your strongest area is X."
+
+"You frequently lose marks in X."
+
+==================================================
+19. CAREER READINESS SCORE
+==================================================
+
+Create:
+
+JOB READINESS SCORE
+
+Example:
+82 / 100
+
+Breakdown:
+
+Technical Knowledge
+Communication
+Problem Solving
+Answer Quality
+Role Readiness
+
+Track this score across interviews.
+
+Show trend over time.
+
+Recommendations should be based on REAL previous results.
+
+==================================================
+20. RESUME ANALYZER
+==================================================
+
+Allow users to upload a resume.
+
+Supported:
+- PDF
+- DOC/DOCX where supported
+
+Use Supabase Storage.
+
+Resume files must remain private.
+
+After upload:
+
+Extract:
+- Education
+- Skills
+- Programming Languages
+- Projects
+- Experience
+- Certifications
+
+Display:
+
+RESUME SUMMARY
+
+Allow:
+"Generate Interview From Resume"
+
+The AI should create personalized questions based ONLY on information actually found in the resume.
+
+Example:
+If user lists React:
+ask appropriate React questions.
+
+If user lists a project:
+ask project-specific questions.
+
+Never invent experience.
+
+==================================================
+21. JOB DESCRIPTION ANALYZER
+==================================================
+
+Allow user to:
+
+- Paste Job Description
+- Upload job description where practical
+
+Analyze:
+
+- Required skills
+- Preferred skills
+- Programming languages
+- Tools
+- Technologies
+- Experience requirements
+
+Generate:
+
+JOB MATCH SCORE
+
+Example:
+82%
+
+Show:
+
+MATCHING SKILLS
+
+MISSING SKILLS
+
+RECOMMENDED SKILLS
+
+PREPARATION RECOMMENDATIONS
+
+Allow:
+
+GENERATE INTERVIEW FROM JOB DESCRIPTION
+
+Also support:
+
+RESUME + JOB DESCRIPTION + ROLE
+
+to create a highly personalized interview.
+
+==================================================
+22. VOICE INTERVIEW
+==================================================
+
+Implement optional browser voice functionality.
+
+Use browser-supported speech APIs where available.
+
+AI question:
+Text-to-Speech
+
+User response:
+Speech-to-Text
+
+Features:
+- Microphone start
+- Microphone stop
+- Transcription preview
+- Submit transcription
+
+Evaluate observable communication characteristics:
+- clarity
+- relevance
+- structure
+- excessive filler words where detectable
+- completeness
+
+Do NOT make unsupported psychological or medical claims.
+
+If speech APIs are unavailable:
+automatically fall back to text interview.
+
+==================================================
+23. CODING INTERVIEW MODE
+==================================================
+
+For Coding interview type:
+
+Create coding workspace.
+
+Show:
+
+Problem Statement
+
+Programming Language
+
+Code Editor
+
+Input/Output
+
+Sample Test Cases
+
+Run Code
+
+Submit Code
+
+Initially support reliable execution for:
+- Python
+- JavaScript
+
+Do NOT execute arbitrary untrusted code directly on the main backend.
+
+Use a safe sandbox/external code execution provider when configured.
+
+If code execution service is unavailable:
+provide demo/fallback mode so the interview can still be demonstrated.
+
+AI Code Review:
+
+- Correctness
+- Logic
+- Readability
+- Edge Cases
+- Time Complexity
+- Space Complexity
+- Improvement Suggestions
+
+Store:
+- Code
+- Language
+- Results
+- Test Cases
+- AI Feedback
+
+==================================================
+24. PERSONALIZED LEARNING ROADMAP
+==================================================
+
+After interviews generate:
+
+7-DAY OR CUSTOM LEARNING ROADMAP
+
+Based on weak areas.
+
+Example:
+
+DAY 1
+Python Functions
+
+DAY 2
+Object-Oriented Programming
+
+DAY 3
+Data Structures
+
+DAY 4
+SQL
+
+DAY 5
+REST APIs
+
+DAY 6
+Mock Interview
+
+DAY 7
+Final Assessment
+
+Each topic:
+- Description
+- Priority
+- Practice task
+- Suggested study time
+- Status
+
+Statuses:
+- Not Started
+- In Progress
+- Completed
+
+Persist progress in Supabase.
+
+==================================================
+25. SMART RECOMMENDATIONS
+==================================================
+
+The dashboard should recommend what the user should do next.
+
+Examples:
+
+"Your technical score improved by 12%."
+
+"You frequently lose marks on database questions."
+
+"Recommended next interview:
+Backend Developer → SQL → Intermediate"
+
+Recommendations must be based on stored interview data.
+
+Do not hard-code recommendations.
+
+==================================================
+26. SUPABASE DATABASE
+==================================================
+
+Create these tables.
+
+PROFILES
+
+- id UUID PRIMARY KEY
+- full_name
+- username UNIQUE
+- email
+- avatar_url
+- preferred_role
+- preferred_programming_language
+- preferred_interview_language
+- created_at
+- updated_at
+
+INTERVIEWS
+
+- id UUID PRIMARY KEY
+- user_id UUID REFERENCES profiles(id)
+- job_role
+- custom_job_role
+- interview_type
+- programming_language
+- difficulty
+- experience_level
+- interview_language
+- interviewer_persona
+- voice_enabled
+- number_of_questions
+- total_marks
+- marks_obtained
+- percentage
+- overall_score
+- performance_rating
+- time_limit_minutes
+- status
+- started_at
+- completed_at
+- created_at
+
+QUESTIONS
+
+- id UUID PRIMARY KEY
+- interview_id UUID REFERENCES interviews(id)
+- question_number
+- question_text
+- question_type
+- topic
+- difficulty
+- max_marks
+- created_at
+
+ANSWERS
+
+- id UUID PRIMARY KEY
+- question_id UUID REFERENCES questions(id)
+- user_id UUID REFERENCES profiles(id)
+- answer_text
+- marks_obtained
+- technical_score
+- answer_quality_score
+- relevance_score
+- communication_score
+- clarity_score
+- strengths JSONB
+- weaknesses JSONB
+- improvement_tips JSONB
+- sample_answer
+- topics_to_revise JSONB
+- evaluation_status
+- created_at
+
+RESUMES
+
+- id UUID PRIMARY KEY
+- user_id UUID REFERENCES profiles(id)
+- file_name
+- storage_path
+- extracted_text
+- parsed_data JSONB
+- created_at
+
+JOB_DESCRIPTIONS
+
+- id UUID PRIMARY KEY
+- user_id UUID REFERENCES profiles(id)
+- raw_text
+- parsed_requirements JSONB
+- matching_skills JSONB
+- missing_skills JSONB
+- match_percentage
+- created_at
+
+LEARNING_ROADMAPS
+
+- id UUID PRIMARY KEY
+- user_id UUID REFERENCES profiles(id)
+- interview_id UUID REFERENCES interviews(id)
+- roadmap_data JSONB
+- created_at
+
+ROADMAP_PROGRESS
+
+- id UUID PRIMARY KEY
+- roadmap_id UUID REFERENCES learning_roadmaps(id)
+- topic
+- description
+- priority
+- status
+- order_index
+- updated_at
+
+CODING_SUBMISSIONS
+
+- id UUID PRIMARY KEY
+- question_id UUID REFERENCES questions(id)
+- user_id UUID REFERENCES profiles(id)
+- language
+- code
+- execution_result
+- test_results JSONB
+- ai_feedback JSONB
+- created_at
+
+INTERVIEWER_SETTINGS
+
+- id UUID PRIMARY KEY
+- interview_id UUID REFERENCES interviews(id)
+- persona
+- interview_language
+- voice_enabled
+- created_at
+
+RECOMMENDATIONS
+
+- id UUID PRIMARY KEY
+- user_id UUID REFERENCES profiles(id)
+- recommendation_type
+- title
+- description
+- priority
+- source_interview_id
+- created_at
+
+==================================================
+27. SUPABASE ROW LEVEL SECURITY
+==================================================
+
+Enable RLS on all user-specific tables.
+
+A user must ONLY be able to access their own data.
+
+Policies should enforce:
+
+- Own profile only
+- Own interviews only
+- Own questions through owned interviews
+- Own answers only
+- Own resumes only
+- Own job descriptions only
+- Own roadmaps only
+- Own roadmap progress only
+- Own coding submissions only
+- Own recommendations only
+
+Prevent users from accessing another user's data.
+
+Test RLS.
+
+==================================================
+28. SUPABASE STORAGE
+==================================================
+
+Create a PRIVATE storage bucket:
+
+resumes
+
+Only authenticated users can upload/access their own resume files.
+
+Do not make private resumes publicly accessible.
+
+Use storage paths scoped to user ID.
+
+==================================================
+29. AI SECURITY
+==================================================
+
+Never expose the AI API secret in browser/frontend.
+
+Use a secure server-side API layer or Supabase Edge Functions.
+
+Create server-side functions for:
+
+- Generate interview question
+- Evaluate answer
+- Generate final feedback
+- Analyze resume
+- Analyze job description
+- Generate learning roadmap
+- Generate recommendations
+
+Use environment variables for secrets.
+
+==================================================
+30. AI QUESTION GENERATION
+==================================================
+
+Generate structured JSON.
+
+Input:
+
+- job role
+- interview type
+- language
+- difficulty
+- experience
+- interview language
+- interviewer persona
+- previous questions
+- previous performance
+- resume information if available
+- job requirements if available
+
+Return:
+
+{
+  "question": "...",
+  "topic": "...",
+  "difficulty": "Intermediate",
+  "questionType": "technical",
+  "maxMarks": 10
+}
+
+Questions must be:
+- Relevant
+- Non-repetitive
+- Appropriate for selected difficulty
+- Appropriate for selected role
+- Appropriate for selected language
+- Appropriate for selected interview type
+
+==================================================
+31. AI ANSWER EVALUATION
+==================================================
+
+Return validated structured JSON:
+
+{
+  "marksObtained": 8,
+  "technicalScore": 8,
+  "answerQualityScore": 9,
+  "relevanceScore": 8,
+  "communicationScore": 8,
+  "clarityScore": 8,
+  "strengths": [],
+  "weaknesses": [],
+  "improvementTips": [],
+  "sampleAnswer": "...",
+  "topicsToRevise": []
+}
+
+Validate AI output before saving to Supabase.
+
+==================================================
+32. AI FINAL REPORT
+==================================================
+
+At interview completion generate:
+
+- Overall summary
+- Main strengths
+- Main weaknesses
+- Performance trends
+- Recommended topics
+- Next interview recommendation
+- Learning roadmap
+- Job readiness insight
+
+==================================================
+33. DATABASE SECURITY AND PERFORMANCE
+==================================================
+
+Add indexes where appropriate.
+
+Especially:
+- interviews.user_id
+- interviews.created_at
+- questions.interview_id
+- answers.question_id
+- resumes.user_id
+- job_descriptions.user_id
+- learning_roadmaps.user_id
+
+Use efficient queries.
+
+Prevent duplicate answer submissions.
+
+Prevent duplicate interview completion.
+
+==================================================
+34. API STRUCTURE
+==================================================
+
+Implement clean API routes.
+
+AUTH:
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/logout
+GET /api/auth/me
+
+PROFILE:
+GET /api/profile
+PUT /api/profile
+
+INTERVIEWS:
+POST /api/interviews
+GET /api/interviews
+GET /api/interviews/:id
+DELETE /api/interviews/:id
+POST /api/interviews/:id/complete
+
+QUESTIONS:
+GET /api/interviews/:id/questions
+POST /api/interviews/:id/questions
+
+ANSWERS:
+POST /api/questions/:id/answer
+
+RESULTS:
+GET /api/interviews/:id/result
+
+ANALYTICS:
+GET /api/analytics
+
+AI:
+POST /api/ai/generate-question
+POST /api/ai/evaluate-answer
+POST /api/ai/final-feedback
+POST /api/ai/analyze-resume
+POST /api/ai/analyze-job
+POST /api/ai/generate-roadmap
+
+==================================================
+35. LOADING / ERROR / EMPTY STATES
+==================================================
+
+Every async feature must have:
+
+- Loading state
+- Error state
+- Retry button when appropriate
+- Success toast
+- Empty state
+
+Examples:
+
+"AI is preparing your next question..."
+
+"Evaluating your answer..."
+
+"Analyzing your resume..."
+
+"Generating your learning roadmap..."
+
+"No interviews yet."
+
+"AI service temporarily unavailable."
+
+Do not leave blank screens.
+
+==================================================
+36. FALLBACK / DEMO MODE
+==================================================
+
+IMPORTANT FOR HACKATHON RELIABILITY.
+
+If AI API is unavailable:
+Use predefined high-quality demo questions and deterministic evaluation.
+
+If speech recognition is unavailable:
+Fall back to text mode.
+
+If code execution provider is unavailable:
+Use safe demo coding results.
+
+If resume parser fails:
+Allow manual interview setup.
+
+The application must never completely crash because an optional service is unavailable.
+
+Clearly label development/demo fallback mode where appropriate.
+
+==================================================
+37. UI/UX
+==================================================
+
+Create a premium professional AI SaaS interface.
+
+Theme:
+Dark professional design.
+
+Visual language:
+- Elegant dark background
+- Subtle accent gradients
+- Modern cards
+- Rounded corners
+- Soft shadows
+- Clean typography
+- Professional icons
+- Minimal animations
+- Excellent spacing
+
+Dashboard should look impressive during a live projector presentation.
+
+Use:
+- Sidebar
+- Top navigation
+- Cards
+- Score indicators
+- Charts
+- Badges
+- Progress bars
+- Modals
+- Toast notifications
+- Skeleton loaders
+- Empty states
+
+Responsive on:
+- Desktop
+- Tablet
+- Mobile
+
+Ensure accessibility:
+- readable text
+- keyboard navigation where practical
+- visible focus states
+- appropriate labels
+
+==================================================
+38. HACKATHON DEMO EXPERIENCE
+==================================================
+
+Optimize for a 5-10 minute live demonstration.
+
+Recommended demo:
+
+1. Open InterviewAI
+2. Register/login
+3. Dashboard shows username
+4. Upload resume
+5. Paste sample job description
+6. Show Job Match Score
+7. Start Interview
+8. Select:
+
+Role:
+Full Stack Developer
+
+Type:
+Technical
+
+Programming Language:
+Python
+
+Difficulty:
+Intermediate
+
+Questions:
+5
+
+Total Marks:
+50
+
+Interview Language:
+English
+
+Interviewer:
+Professional Recruiter
+
+9. Start interview
+10. Show AI-generated question
+11. Submit answer
+12. Show AI evaluation
+13. Show adaptive next question
+14. Complete interview
+15. Show final marks
+16. Show AI feedback
+17. Show Job Readiness Score
+18. Show personalized learning roadmap
+19. Open interview history
+20. Open analytics
+
+The complete flow must work smoothly.
+
+==================================================
+39. HACKATHON PRESENTATION QUALITY
+==================================================
+
+Make the product easy to explain to judges.
+
+The product story:
+
+"InterviewAI doesn't simply ask interview questions.
+
+It understands the user's role, skills, resume and target job, conducts an adaptive interview, evaluates each answer, calculates performance, identifies skill gaps and creates a personalized preparation roadmap."
+
+Highlight:
+
+- AI personalization
+- Adaptive questioning
+- Technical evaluation
+- Communication evaluation
+- Resume analysis
+- Job matching
+- Coding interview mode
+- Performance analytics
+- Personalized learning roadmap
+
+==================================================
+40. README
+==================================================
+
+Create a professional README including:
+
+- Project name
+- Problem statement
+- Problem solution
+- Features
+- Technology stack
+- Architecture
+- Supabase setup
+- Database schema
+- Environment variables
+- AI API setup
+- Storage setup
+- RLS explanation
+- Running the project
+- Demo mode
+- API structure
+- Future improvements
+
+==================================================
+41. ENVIRONMENT VARIABLES
+==================================================
+
+Use environment variables.
+
+Required examples:
+
+SUPABASE_URL --{https://wbfxumdfnoglylojpnpw.supabase.co}
+SUPABASE_ANON_KEY --{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZnh1bWRmbm9nbHlsb2pwbnB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjI1MjEsImV4cCI6MjEwNjgzODUyMX0.PzhCPw224x85U0sH2BFTMxRlDz87vmM_em4kbjDTdCk}
+SUPABASE_SERVICE_ROLE_KEY --{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZnh1bWRmbm9nbHlsb2pwbnB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MTI2MjUyMSwiZXhwIjoyMTA2ODM4NTIxfQ.QGWH6We25U2Z4cM-HafmdTxcBMFSBQMcncWIR7rP33w}
+DATABASE_URL where required by the selected architecture --{https://wbfxumdfnoglylojpnpw.supabase.co}
+AI_API_KEY --{AQ.Ab8RN6Jn8J8PSzgUtYX2sP22gh3wnJ_ilfqwkaSNyCXOtvueEw}
+JWT_SECRET only if the chosen auth architecture requires it --{c59af19b-a33f-44de-8306-93184e517f19}
+
+IMPORTANT:
+Never hard-code secrets.
+
+Never expose SUPABASE_SERVICE_ROLE_KEY in client-side code.
+
+Never expose AI_API_KEY in client-side code.
+
+==================================================
+42. TESTING
+==================================================
+
+After building the application, actually run it.
+
+Test:
+
+1. Registration
+2. Login
+3. Logout
+4. Session persistence
+5. Profile
+6. Start interview
+7. Save interview
+8. Generate questions
+9. Submit answer
+10. Evaluate answer
+11. Marks calculation
+12. Adaptive questions
+13. Interview completion
+14. Final report
+15. Interview history
+16. Analytics
+17. Resume upload
+18. Resume analysis
+19. Job description analysis
+20. Job match
+21. Learning roadmap
+22. Roadmap progress
+23. Coding mode
+24. Voice fallback
+25. RLS
+26. Unauthorized access prevention
+
+Fix all compilation/runtime/database errors you find.
+
+==================================================
+43. CODE QUALITY
+==================================================
+
+Use:
+- reusable components
+- modular architecture
+- meaningful variable names
+- error handling
+- validation
+- clean API services
+- clean database operations
+- comments only where useful
+
+Avoid:
+- duplicated code
+- unnecessary libraries
+- huge monolithic components
+- hard-coded user-specific data
+- fake API responses except fallback/demo mode
+
+==================================================
+44. FINAL REQUIREMENT
+==================================================
+
+Build the application completely.
+
+Do not stop after creating the UI.
+
+The final application must be a working full-stack application using:
+
+React
++
+Node.js/Express
++
+Supabase Auth
++
+Supabase PostgreSQL
++
+Supabase Storage
++
+Supabase RLS
++
+Secure server-side AI
+
+The most important complete flow is:
+
+LOGIN
+↓
+DASHBOARD
+↓
+INTERVIEW SETUP
+↓
+SELECT ROLE
+↓
+SELECT INTERVIEW TYPE
+↓
+SELECT PROGRAMMING LANGUAGE
+↓
+SELECT DIFFICULTY
+↓
+SELECT NUMBER OF QUESTIONS
+↓
+SELECT TOTAL MARKS
+↓
+SELECT INTERVIEW LANGUAGE
+↓
+SELECT INTERVIEWER PERSONA
+↓
+START INTERVIEW
+↓
+AI QUESTION
+↓
+USER ANSWER
+↓
+AI EVALUATION
+↓
+MARKS
+↓
+ADAPTIVE NEXT QUESTION
+↓
+FINAL RESULT
+↓
+JOB READINESS SCORE
+↓
+PERSONALIZED FEEDBACK
+↓
+LEARNING ROADMAP
+↓
+SAVE TO SUPABASE
+↓
+INTERVIEW HISTORY
+↓
+ANALYTICS
+
+Build the project in a way that is reliable for a live university hackathon demonstration.
+
+Do not claim a feature works unless it has been implemented and tested.
+
+Start building the application now.
